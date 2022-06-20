@@ -14,7 +14,7 @@ let GlobalStoreSetter = (keyOrData, value)=>{
         GlobalStore[keyOrData] = value
     }
     else{
-        _.forIn(keyOrData, (v, k) => {
+        _.forOwn(keyOrData, (v, k) => {
             GlobalStore[k] = v;
         });
     }
@@ -35,12 +35,12 @@ export class GscSession {
     }
 
     static getInstance () {
-        return GlobalInstance
+        return GlobalInstance === undefined ? new GscSession() : GlobalInstance
     }
 
     build (sid, info) {
         this.#sid = sid
-        GlobalStoreGetter(info)
+        GlobalStoreSetter(info)
         return this
     }
 
@@ -48,7 +48,7 @@ export class GscSession {
         if (this.#sid) {
             GlobalStore = {}
             this.#sid = undefined
-            GlobalStoreGetter({})
+            GlobalStoreSetter({})
         }
     }
 
@@ -58,12 +58,12 @@ export class GscSession {
     }
 
     info () {
-        return GlobalStoreGetter
+        return GlobalStoreGetter()
     }
 
     logging () {
         let data = GlobalStoreGetter()
-        return _.keys(data).length > 0
+        return data && _.keys(data).length > 0
     }
 
     getSID () {
