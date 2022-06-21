@@ -13,16 +13,18 @@ function currentTime () {
 }
 
 export function encryptMessage (params, headers) {
-    // 插入签名
-    try {
-        // 插入声明周期维护模块
-        const result = JSON.parse(encrypt_vm(cpv_k, spk, share_k, params))
-        headers['gsc-signature'] = result.signature
-        headers['gsc-timestamp'] = result.timestamp
-        headers['gsc-token'] = share_k
-        return result.content
-    } catch (e) {
-        console.error('filterUrl error=>', e)
+    if (expired > 0) {
+        // 插入签名
+        try {
+            // 插入声明周期维护模块
+            const result = JSON.parse(encrypt_vm(cpv_k, spk, share_k, params))
+            headers['gsc-signature'] = result.signature
+            headers['gsc-timestamp'] = result.timestamp
+            headers['gsc-token'] = share_k
+            return result.content
+        } catch (e) {
+            console.log('filterUrl error=>', e)
+        }
     }
 }
 
@@ -44,15 +46,15 @@ export async function freshContext (headers) {
 
 export function decryptResult (response) {
     // 过滤结果
-    try {
-        // 插入声明周期维护模块
-        const signature = response.headers['gsc-signature']
-        const timestamp = BigInt(response.headers['gsc-timestamp'])
-        console.log('timestamp=>', response.headers['gsc-timestamp'])
-        console.log('content=>', response.data)
-        response.data = decrypt_vm(cpb_k, spk, share_k, response.data, signature, timestamp)
-    } catch (e) {
-        console.error('filterResult error=>', e)
+    if (expired > 0) {
+        try {
+            // 插入声明周期维护模块
+            const signature = response.headers['gsc-signature']
+            const timestamp = BigInt(response.headers['gsc-timestamp'])
+            response.data = decrypt_vm(cpb_k, spk, share_k, response.data, signature, timestamp)
+        } catch (e) {
+            console.log('filterResult error=>', e)
+        }
     }
     return response
 }
@@ -70,8 +72,6 @@ export function createSec (token) {
         const headers = {}
         const params = encryptMessage(token, headers)
         headers['gsc-token'] = cpb_k
-        console.log('content:' + params)
-        console.log('client_private_key:' + cpv_k)
         axios.post(config.gatewayUrl + '/' + encodeURIComponent(token), params, {
             headers
         }).then(response => {
@@ -79,11 +79,10 @@ export function createSec (token) {
                 decryptResult(response)
                 const result = JSON.parse(response.data)
                 share_k = result['share_id']
-                // expired = result['expired']
-                expired = currentTime()
+                expired = result['expired']
             }
         }).catch(error => {
-            console.error('createUrl error=>', error)
+            console.log('createUrl error=>', error)
         })
     })
 }
