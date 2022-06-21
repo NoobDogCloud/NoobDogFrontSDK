@@ -26,6 +26,7 @@ export function encryptMessage (params, headers) {
             console.log('filterUrl error=>', e)
         }
     }
+    return params
 }
 
 export async function freshContext (headers) {
