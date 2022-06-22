@@ -1,6 +1,7 @@
 import { decrypt_vm, encrypt_vm, init_vm, initLocal } from 'frontend-sec/frontend_sec'
 import axios from 'axios'
 import config from "../config/config";
+import Config from "../config/config";
 // , { decrypt_vm, encrypt_vm, init_vm }
 let expired = 0
 let spk = ''
@@ -13,7 +14,7 @@ function currentTime () {
 }
 
 export function encryptMessage (params, headers) {
-    if (expired > 0) {
+    if (Config.mode === 'sec-gateway') {
         // 插入签名
         try {
             // 插入声明周期维护模块
@@ -30,7 +31,7 @@ export function encryptMessage (params, headers) {
 }
 
 export async function freshContext (headers) {
-    if (expired > 0 && currentTime() > expired) {
+    if (expired > 0 && currentTime() > expired && Config.mode === 'sec-gateway') {
         const params = encryptMessage('', headers)
         const response = await axios.post(config.gatewayUrl + '/fresh/' + encodeURIComponent(cpb_k), params, {
             headers
@@ -47,7 +48,7 @@ export async function freshContext (headers) {
 
 export function decryptResult (response) {
     // 过滤结果
-    if (expired > 0) {
+    if (Config.mode === 'sec-gateway') {
         try {
             // 插入声明周期维护模块
             const signature = response.headers['gsc-signature']
@@ -73,7 +74,7 @@ export function createSec (token) {
         const headers = {}
         const params = encryptMessage(token, headers)
         headers['gsc-token'] = cpb_k
-        axios.post(config.gatewayUrl + '/' + encodeURIComponent(token), params, {
+        axios.post(config.baseUrl + '/' + encodeURIComponent(token), params, {
             headers
         }).then(response => {
             if (response.status === 200 && response.data !== '') {

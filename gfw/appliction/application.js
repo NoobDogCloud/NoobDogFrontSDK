@@ -16,7 +16,7 @@ const ContextStore = {}
 function loadContext (data) {
     return new Promise((resolve, reject) => {
         axios
-            .get(config.oauthUrl + '/' + data)
+            .get(config.baseUrl + '/' + data)
             .then(response => {
                 if (response.data !== '') {
                     reject('error data')
