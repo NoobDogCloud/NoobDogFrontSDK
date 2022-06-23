@@ -87,12 +87,19 @@ export class Rpc {
     async setServiceCtx () {
         // 检查微服务
         const appCtx = await this.#context.getContext()
-        if (!_.indexOf(appCtx.services, this.#serviceName)) {
-            throw new Error(`服务[${this.#serviceName}]未在应用->${appCtx.id} 中部署!`)
+        if( appCtx){
+            if (!_.indexOf(appCtx.services, this.#serviceName)) {
+                throw new Error(`服务[${this.#serviceName}]未在应用->${appCtx.id} 中部署!`)
+            }
+            const services = appCtx.services;
+            if( services ){
+                let ctx = _.get(services, this.#serviceName)
+                if( ctx ){
+                    this.#base.ctx = MircoServiceContext.build(ctx)
+                }
+            }
         }
-        const services = appCtx.services;
-        let ctx = _.get(services, this.#serviceName)
-        this.#base.ctx = MircoServiceContext.build(ctx)
+
     }
 
     // 万能调用call,带入参数
