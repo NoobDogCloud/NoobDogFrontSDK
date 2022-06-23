@@ -14,8 +14,12 @@ export class BaseApi {
     output_filter = {}
     // 订阅客户端
     subscriber
+    _Context
+
     // 应用上下文
-    Context
+    Context() {
+        return this._Context ?? Application.build()
+    }
 
     constructor (config) {
         this.input_filter = config.pushHook
@@ -24,7 +28,7 @@ export class BaseApi {
         this.ModelName = config.model
         this.ServiceName = config.name
         this.PreHeader = config.headers
-        this.Context = config.context ?? Application.build()
+        this._Context = config.context
     }
 
     static build (config) {
@@ -40,8 +44,8 @@ export class BaseApi {
     }
 
     getRequest () {
-        return Rpc.build(this.ServiceName, this.Context).setPreloadHeader(this.PreHeader).setHeader({
-            'appID': this.Context.getAppID()
+        return Rpc.build(this.ServiceName, this.Context()).setPreloadHeader(this.PreHeader).setHeader({
+            'appID': this.Context().getAppID()
         })
     }
 
@@ -226,7 +230,7 @@ export class BaseApi {
         if (!this.subscriber) {
             this.subscriber = await SubscribeClient.NewService(this.getRequest().getServiceName())
         }
-        return this.subscriber.setHeader('appId', this.Context.getAppID())
+        return this.subscriber.setHeader('appId', this.Context().getAppID())
     }
 
     // 订阅数据

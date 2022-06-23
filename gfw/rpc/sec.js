@@ -33,7 +33,7 @@ export function encryptMessage (params, headers) {
 export async function freshContext (headers) {
     if (expired > 0 && currentTime() > expired && Config.mode === 'sec-gateway') {
         const params = encryptMessage('', headers)
-        const response = await axios.post(config.gatewayUrl + '/fresh/' + encodeURIComponent(cpb_k), params, {
+        const response = await axios.post(config.baseUrl + '/fresh/' + encodeURIComponent(cpb_k), params, {
             headers
         })
         if (response.status === 200 && response.data !== '') {

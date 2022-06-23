@@ -1,5 +1,4 @@
 export declare interface Config {
-    framework?: string
     appID?: string
     appKey?: string
     mode: string

@@ -8,11 +8,10 @@
 import _ from "lodash";
 
 const defaultConfig = {
-    framework: 'system',
-    appID: '0',
-    appKey: 'grapeSoft@',
-    mode: 'direct',
-    baseUrl: 'http://127.0.0.1:805',
+    appID: '',
+    appKey: '',
+    mode: '',
+    baseUrl: '',
     getUrl: function () {
         return ( this.mode === 'gateway' || this.mode === 'sec-gateway') ?
             this.baseUrl + "/api" :

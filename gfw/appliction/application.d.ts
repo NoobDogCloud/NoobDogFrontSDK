@@ -1,5 +1,5 @@
 export declare class Application {
-    static build(appId: String | undefined): Application
+    static build(appId?: String | undefined): Application
 
     static getDefaultContext(): Promise<any>
 

@@ -18,7 +18,7 @@ function loadContext (data) {
         axios
             .get(config.baseUrl + '/' + data)
             .then(response => {
-                if (response.data !== '') {
+                if (response.data === '') {
                     reject('error data')
                 }
                 const result = RpcReturn.build(response.data)
@@ -26,7 +26,6 @@ function loadContext (data) {
                     reject('error invoke')
                 }
                 ContextStore[config.appID] = result.asJson()
-                console.log(ContextStore[config.appID])
                 resolve('ok')
             })
             .catch(error => {
@@ -104,7 +103,7 @@ export class Application {
                 ContextStore[this.appId] = {}
             } else {
                 // 通过统一方法获得应用上下文
-                const resp = await RpcClient.New(config.framework)
+                const resp = await RpcClient.New("system")
                     .setHeader('appID', 0)
                     .setPath('Context', 'get')
                     .get(`${this.appId}`)
