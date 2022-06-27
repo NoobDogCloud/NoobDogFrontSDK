@@ -36,11 +36,11 @@ export class BaseApi {
     }
 
     static buildQuery (query) {
-        return query && query?.constructor?.name === 'QueryBuilder' ? query.build() : []
+        return query && query?.constructor?.name === '_QueryBuilder' ? query.build() : []
     }
 
     static appendQueryOption (options) {
-        return options && options?.constructor?.name === 'QueryOptionBuilder' ? options.build() : {}
+        return options && options?.constructor?.name === '_QueryOptionBuilder' ? options.build() : {}
     }
 
     getRequest () {

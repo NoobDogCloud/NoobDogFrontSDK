@@ -4,6 +4,7 @@ export class QueryOptionBuilder {
     #fields
     #sort
     #options
+    #topic
 
     constructor() {
         this.reInit()
@@ -44,6 +45,11 @@ export class QueryOptionBuilder {
         return this
     }
 
+    topic(topic){
+        this.#topic = topic
+        return this
+    }
+
     build() {
         const options = {}
         if (this.#fields) {
@@ -54,6 +60,9 @@ export class QueryOptionBuilder {
         }
         if (this.#options) {
             options['options'] = JSON.stringify(this.#options)
+        }
+        if (this.#topic) {
+            options['topic'] = this.#topic
         }
         return options
     }

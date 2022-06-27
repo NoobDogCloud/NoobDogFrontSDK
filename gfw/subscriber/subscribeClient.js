@@ -119,7 +119,7 @@ export class SubscribeClient extends NetCommon {
     }
 
     getTopic() {
-        return this.service ? `topic_service_${this.service}_${this.class}` : this.#topic
+        return this.service ? `${this.service}#${this.class}` : this.#topic
     }
 
     subscribe(...arg) {

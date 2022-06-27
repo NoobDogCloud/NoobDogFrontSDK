@@ -17,7 +17,7 @@ export declare class QueryOptionBuilder {
 
     notFields(fields: string[]): this
 
-    enableJoin(statue: boolean = true): this
+    enableJoin(statue: boolean): this
 
     build(): QueryOptionHeader
 }
