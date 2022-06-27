@@ -1,23 +1,15 @@
 import { isArray, isObject } from 'lodash'
 
 export class QueryOptionBuilder {
-    #fields
-    #sort
-    #options
-    #topic
+    #fields= undefined
+    #sort = {}
+    #options= {}
+    #topic = undefined
 
-    constructor() {
-        this.reInit()
-    }
+    constructor() {}
 
     static build() {
         return new QueryOptionBuilder()
-    }
-
-    reInit() {
-        this.#fields = undefined
-        this.#sort = []
-        this.#options = undefined
     }
 
     desc(field) {
@@ -51,19 +43,19 @@ export class QueryOptionBuilder {
     }
 
     build() {
-        const options = {}
+        const header = {}
         if (this.#fields) {
-            options['fields'] = isObject(this.#fields) ? JSON.stringify(this.#fields) : isArray(this.#fields) ? this.#fields.join(',') : this.#fields
+            header['GrapeDbFields'] = isObject(this.#fields) ? JSON.stringify(this.#fields) : isArray(this.#fields) ? this.#fields.join(',') : this.#fields
         }
-        if (this.#sort.length > 0) {
-            options['sort'] = JSON.stringify(this.#sort)
+        if (Object.keys(this.#sort).length > 0) {
+            header['GrapeDbSorts'] = JSON.stringify(this.#sort)
         }
-        if (this.#options) {
-            options['options'] = JSON.stringify(this.#options)
+        if (Object.keys(this.#options).length > 0) {
+            header['GrapeDbOptions'] = JSON.stringify(this.#options)
         }
         if (this.#topic) {
-            options['topic'] = this.#topic
+            header['topic'] = this.#topic
         }
-        return options
+        return header
     }
 }

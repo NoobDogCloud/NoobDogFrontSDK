@@ -19,5 +19,7 @@ export declare class QueryOptionBuilder {
 
     enableJoin(statue: boolean): this
 
+    topic(topic: string): this
+
     build(): QueryOptionHeader
 }
