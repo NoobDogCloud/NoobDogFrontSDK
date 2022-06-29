@@ -1,6 +1,6 @@
 // 显示调试
-export function getDebugText(row, column, cellValue, index) {
-    return cellValue ? '是' : '否'
+export function getDebugText(v) {
+    return v ? '是' : '否'
 }
 
 export function getDebugModel() {

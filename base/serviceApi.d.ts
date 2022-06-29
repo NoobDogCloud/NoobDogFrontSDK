@@ -1,3 +1,5 @@
+import {BaseApi} from "./baseApi";
+
 declare class ServiceApi {
     static New(config: ServiceApiConfig): BaseApi
 }
@@ -6,7 +8,7 @@ type ServiceFilter = {
     [key: string]: any
 }
 
-type ServiceApiConfig = {
+export declare type ServiceApiConfig = {
     // 服务名称
     name: string
     // 服务预载头配置

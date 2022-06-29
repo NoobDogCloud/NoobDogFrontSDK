@@ -1,4 +1,4 @@
-export function getStateText(row, column, v) {
+export function getStateText(v) {
     switch (v) {
         case 1:
             return '正常'
