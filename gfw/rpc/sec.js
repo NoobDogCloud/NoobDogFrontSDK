@@ -2,7 +2,6 @@ import { decrypt_vm, encrypt_vm, init_vm, initLocal } from 'noobdog-frontend-sec
 import axios from 'axios'
 import config from "../config/config";
 import Config from "../config/config";
-// , { decrypt_vm, encrypt_vm, init_vm }
 let expired = 0
 let spk = ''
 let share_k = ''
