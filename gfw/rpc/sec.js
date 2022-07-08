@@ -1,4 +1,4 @@
-import { decrypt_vm, encrypt_vm, init_vm, initLocal } from 'frontend-sec/frontend_sec'
+import { decrypt_vm, encrypt_vm, init_vm, initLocal } from 'noobdog-frontend-sec/frontend_sec'
 import axios from 'axios'
 import config from "../config/config";
 import Config from "../config/config";

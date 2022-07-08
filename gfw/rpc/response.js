@@ -6,6 +6,12 @@ export class RpcReturn {
     #pageInfo
 
     constructor (resp) {
+        if( resp == null ){
+            resp = {
+                errorcode: 1,
+                message: "接口返回空"
+            }
+        }
         this.#v = isString(resp) ? JSON.parse(resp) : resp
         // this.#v = resp
         this.#pageInfo = null
