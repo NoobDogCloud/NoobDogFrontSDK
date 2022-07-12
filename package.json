@@ -1,6 +1,6 @@
 {
   "name": "gsc-frontend-sdk",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,8 +19,5 @@
     "qs": "^6.10.5",
     "websocket": "^1.0.34"
   },
-  "devDependencies": {
-    "eslint": "^8.19.0",
-    "eslint-plugin-vue": "^9.2.0"
-  }
+  "devDependencies": {}
 }

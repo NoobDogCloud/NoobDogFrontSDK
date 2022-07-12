@@ -13,9 +13,15 @@ const defaultConfig = {
     mode: '',
     baseUrl: '',
     getUrl: function () {
-        return ( this.mode === 'gateway' || this.mode === 'sec-gateway') ?
-            this.baseUrl + "/api" :
-            this.baseUrl;
+        switch (this.mode){
+            case 'gateway':
+            case 'sec-gateway':
+                return this.baseUrl + "/api"
+            case 'direct':
+                return this.baseUrl
+            default:
+                return null
+        }
     }
 }
 
