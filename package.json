@@ -18,5 +18,9 @@
     "lodash": "^4.17.21",
     "qs": "^6.10.5",
     "websocket": "^1.0.34"
+  },
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-plugin-vue": "^9.2.0"
   }
 }
