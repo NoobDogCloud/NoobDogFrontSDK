@@ -26,7 +26,7 @@ export declare class RpcReturn {
 
     getRecord(): any
 
-    asPageInfo(fnFilter: null | undefined | ((v: any) => boolean)): PageInfo
+    asPageInfo(fnFilter?: null | undefined | ((v: any) => boolean)): PageInfo
 
     asString(): string
 

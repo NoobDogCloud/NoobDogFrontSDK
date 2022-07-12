@@ -1,6 +1,6 @@
 import {BaseApi} from "./baseApi";
 
-declare class ServiceApi {
+export declare class ServiceApi {
     static New(config: ServiceApiConfig): BaseApi
 }
 
