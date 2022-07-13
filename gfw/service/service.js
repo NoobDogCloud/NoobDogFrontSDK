@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import {ModelField} from "./modelField";
+import {toObject} from "../util";
 
 export const modelFieldType = {
     publicField: 0,
@@ -25,12 +26,13 @@ export class MircoServiceContext {
     endpoint = []
 
     constructor (info) {
+        info.datamodel = toObject(info.datamodel)
         // this.id = appID
         this.name = info.name
         this.protocol = info.transfer + '://'
         this.endpoint = info.subaddr.split(',')
         this.model = {}
-        _.forOwn(info.dataModel, (val, key) => {
+        _.forOwn(info.datamodel, (val, key) => {
             const arr = {}
             _.forEach(val.rule, v => {
                 arr[v.name] = ModelField.build(v)

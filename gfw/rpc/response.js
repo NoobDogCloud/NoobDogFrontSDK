@@ -1,5 +1,6 @@
 import { isArray, isBoolean, isNumber, isString } from 'lodash'
 import dayjs from 'dayjs'
+import {toObject} from "../util";
 
 export class RpcReturn {
     #v
@@ -12,7 +13,7 @@ export class RpcReturn {
                 message: "接口返回空"
             }
         }
-        this.#v = isString(resp) ? JSON.parse(resp) : resp
+        this.#v = toObject(resp)
         // this.#v = resp
         this.#pageInfo = null
     }
