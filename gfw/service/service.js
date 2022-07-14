@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import {ModelField} from "./modelField";
-import {toObject} from "../util";
 
 export const modelFieldType = {
     publicField: 0,
