@@ -25,7 +25,8 @@ export class MircoServiceContext {
     endpoint = []
 
     constructor (info) {
-        info.datamodel = toObject(info.datamodel)
+        const v = info.datamodel;
+        info.datamodel = _.isString(v) ? JSON.parse(v) : v
         // this.id = appID
         this.name = info.name
         this.protocol = info.transfer + '://'

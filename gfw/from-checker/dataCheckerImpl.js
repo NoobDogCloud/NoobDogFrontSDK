@@ -25,7 +25,7 @@ export class ImplDataChecker {
     }
 
     static IsEmail (email) {
-        return /^([a-z0-9A-Z]+[-|_\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$/g.test(email)
+        return /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/g.test(email)
     }
 
     static IsMobileNumber (mobileNumber) {
