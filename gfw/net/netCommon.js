@@ -21,13 +21,13 @@ export class NetCommon {
     action
     header = {}
     host
-    session = {}
+    session
     api_token
 
     constructor (service) {
         this.service = service
         this.host = config.getUrl()
-        this.session = GscSession.getInstance()
+        this.session = this.loadSession()
         this.init()
     }
 
@@ -62,6 +62,13 @@ export class NetCommon {
             }
         }
         return args
+    }
+
+    loadSession(){
+        if(!this.session){
+            this.session = GscSession.getInstance()
+        }
+        return this.session
     }
 
     init () {

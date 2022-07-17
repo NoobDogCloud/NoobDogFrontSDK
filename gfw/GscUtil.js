@@ -26,19 +26,29 @@ export class GscUtil {
     }
 
     static compress(data) {
-        const v = _.isString(data) ? JSON.parse(data) : data;
-        let e = JSON.stringify(v)
-        for (var n = [], i = !1, o = 0, r = (e = e.split("\n").join(" ")).length; o < r; o++) {
-            var a = e.charAt(o);
-            i && a === i ? "\\" !== e.charAt(o - 1) && (i = !1) : i || '"' !== a && "'" !== a ? i || " " !== a && "\t" !== a || (a = "") : i = a,
-                n.push(a)
+        try {
+            const v = _.isString(data) ? JSON.parse(data) : data;
+            let e = JSON.stringify(v)
+            for (var n = [], i = !1, o = 0, r = (e = e.split("\n").join(" ")).length; o < r; o++) {
+                var a = e.charAt(o);
+                i && a === i ? "\\" !== e.charAt(o - 1) && (i = !1) : i || '"' !== a && "'" !== a ? i || " " !== a && "\t" !== a || (a = "") : i = a,
+                    n.push(a)
+            }
+            e = n.join("");
+            return e;
         }
-        e = n.join("");
-        return e;
+        catch (e){
+            return toString(data);
+        }
     }
 
     static pretty(data) {
-        const v = _.isString(data) ? JSON.parse(data) : data;
-        return JSON.stringify(v, undefined, 4)
+        try{
+            const v = _.isString(data) ? JSON.parse(data) : data;
+            return JSON.stringify(v, undefined, 4)
+        }
+        catch (e){
+            return toString(data);
+        }
     }
 }

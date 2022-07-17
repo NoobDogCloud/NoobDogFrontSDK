@@ -20,7 +20,7 @@ let GlobalStoreSetter = (keyOrData, value)=>{
     }
 }
 export class GscSession {
-    #sid
+    sid
 
     static setStoreGetter (new_getter) {
         GlobalStoreGetter = new_getter
@@ -31,23 +31,26 @@ export class GscSession {
     }
 
     constructor () {
-        this.#sid = ''
+        this.sid = ''
     }
 
     static getInstance () {
-        return GlobalInstance === undefined ? new GscSession() : GlobalInstance
+        if( GlobalInstance === undefined ){
+            GlobalInstance = new GscSession()
+        }
+        return GlobalInstance
     }
 
     build (sid, info) {
-        this.#sid = sid
+        this.sid = sid
         GlobalStoreSetter(info)
         return this
     }
 
     destroy () {
-        if (this.#sid) {
+        if (this.sid) {
             GlobalStore = {}
-            this.#sid = undefined
+            this.sid = undefined
             GlobalStoreSetter({})
         }
     }
@@ -67,6 +70,6 @@ export class GscSession {
     }
 
     getSID () {
-        return this.#sid
+        return this.sid
     }
 }

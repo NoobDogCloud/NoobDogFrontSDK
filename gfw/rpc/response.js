@@ -68,7 +68,7 @@ export class RpcReturn {
 
     asString () {
         try {
-            return isString(this.#v.record) ?? String(this.#v.record)
+            return isString(this.#v.record) ? this.#v.record : String(this.#v.record)
         } catch (e) {
             console.warn('record is not a string=>', this.#v.record)
             return ''
@@ -77,7 +77,7 @@ export class RpcReturn {
 
     asNumber () {
         try {
-            return isNumber(this.#v.record) ?? Number(this.#v.record)
+            return isNumber(this.#v.record) ? this.#v.record : Number(this.#v.record)
         } catch (e) {
             console.warn('record is not a number=>', this.#v.record)
             return ''
