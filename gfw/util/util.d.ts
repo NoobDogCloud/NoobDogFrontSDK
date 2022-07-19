@@ -1,4 +1,4 @@
-export declare class GscUtil{
+export declare class util{
     static toObject(v : any):object
     static toString(v : any): string
     static toBoolean(v : any): boolean

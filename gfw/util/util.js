@@ -1,20 +1,20 @@
 import _ from "lodash";
 
-export class GscUtil {
+export class util {
     static toObject(v) {
-        return _.isString(v) ? JSON.parse(v) : v;
+        return _.isString(v) ? JSON.parse(v) : {};
     }
 
     static toString(v) {
-        return _.isObject(v) ? JSON.stringify(v) : v;
+        return _.isObject(v) ? JSON.stringify(v) : "";
     }
 
     static toBoolean(v) {
-        return _.isString(v) ? v === "true" : v;
+        return _.isString(v) ? v === "true" : false;
     }
 
     static toNumber(v) {
-        return _.isString(v) ? Number(v) : v;
+        return _.isString(v) ? Number(v) : 0;
     }
 
     static invalidate(v) {
@@ -27,6 +27,9 @@ export class GscUtil {
 
     static compress(data) {
         try {
+            if( data == null || data == undefined ){
+                return "";
+            }
             const v = _.isString(data) ? JSON.parse(data) : data;
             let e = JSON.stringify(v)
             for (var n = [], i = !1, o = 0, r = (e = e.split("\n").join(" ")).length; o < r; o++) {
@@ -44,6 +47,9 @@ export class GscUtil {
 
     static pretty(data) {
         try{
+            if( data == null || data == undefined ){
+                return "";
+            }
             const v = _.isString(data) ? JSON.parse(data) : data;
             return JSON.stringify(v, undefined, 4)
         }
