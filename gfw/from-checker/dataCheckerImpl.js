@@ -5,7 +5,7 @@ import {validateCardInfo} from "bankcard";
 
 export class ImplDataChecker {
     static IsNull (str) {
-        return str === undefined || str.length === 0
+        return str === undefined || str.length === 0 || false || str === 'null' || str === 'undefined' || str === ''
     }
 
     static IsZero (str) {

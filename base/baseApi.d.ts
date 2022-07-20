@@ -7,6 +7,10 @@ export declare class BaseApi {
 
     static build(config: ServiceApiConfig)
 
+    addPushHook (filter: { [key: string]: any }): this
+
+    addPullHook (filter: { [key: string]: any }): this
+
     beforeFilter(data: { [key: string]: any }): any
 
     afterFilter(data: { [key: string]: any }): any

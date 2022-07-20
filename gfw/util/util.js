@@ -2,11 +2,28 @@ import _ from "lodash";
 
 export class util {
     static toObject(v) {
-        return _.isString(v) ? JSON.parse(v) : {};
+        if( _.isString(v) ){
+            return JSON.parse(v);
+        } else if( _.isObject(v) ){
+            return v;
+        } else {
+            return {};
+        }
     }
 
     static toString(v) {
-        return _.isObject(v) ? JSON.stringify(v) : "";
+        if ( _.isString(v)){
+            return v;
+        } else if ( _.isObject(v) ){
+            return JSON.stringify(v);
+        } else {
+            try{
+                return String(v);
+            }
+            catch (e){
+                return "";
+            }
+        }
     }
 
     static toBoolean(v) {

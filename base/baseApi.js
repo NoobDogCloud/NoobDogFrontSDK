@@ -49,6 +49,16 @@ export class BaseApi {
         })
     }
 
+    addPushHook (filter) {
+        this.input_filter = Object.assign(this.input_filter, filter)
+        return this
+    }
+
+    addPullHook (filter) {
+        this.output_filter = Object.assign(this.output_filter, filter)
+        return this
+    }
+
     beforeFilter (data) {
         const o = _.cloneDeep(data)
         if (this.input_filter) {
