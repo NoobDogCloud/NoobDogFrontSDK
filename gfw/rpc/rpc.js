@@ -107,7 +107,7 @@ export class Rpc {
         // 载入类说明
         const classDesc = await this.loadApi(this.#className)
         // 检查接口
-        const apiDesc = this.#base.chkInterface(classDesc, this.#actionName, ...arg)
+        const apiDesc = this.#base.chkInterface(classDesc, this.#className, this.#actionName, ...arg)
         // 设置类
         const n = this.#base.getNet()
         n.setPath(this.#className, this.#actionName)

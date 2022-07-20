@@ -5,13 +5,11 @@ import {RpcClient} from "./rpcClient";
 export class BaseRpc {
     ctx
     #serviceName
-    #className
     #recovery_fn = []
     #net
 
     constructor (serviceName) {
         this.#serviceName = serviceName
-        this.#className = ''
         this.#net = RpcClient.New(serviceName)
         this.#recovery_fn = []
         this.init()
@@ -31,9 +29,9 @@ export class BaseRpc {
     }
 
     // 检查接口是否存在
-    chkInterface (classDesc, actionName, ...arg) {
+    chkInterface (classDesc, className, actionName, ...arg) {
         if (!_.has(classDesc, actionName)) {
-            throw new Error(`服务{${this.#serviceName}/${this.#className} -> 接口[${actionName}] 不存在`)
+            throw new Error(`服务{${this.#serviceName}/${className} -> 接口[${actionName}] 不存在`)
         }
         // debugger;
         // 获得同名API列表
@@ -45,7 +43,7 @@ export class BaseRpc {
         })
         // debugger;
         if (resultArray.length === 0) {
-            throw new Error(`服务{${this.#serviceName}/${this.#className} -> 接口[${actionName}] ->未找到合适的接口(参数数量或者类型不匹配)`)
+            throw new Error(`服务{${this.#serviceName}/${className} -> 接口[${actionName}] ->未找到合适的接口(参数数量或者类型不匹配)`)
         }
         // debugger;
         return apiArray
